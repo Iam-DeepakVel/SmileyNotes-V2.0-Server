@@ -7,6 +7,7 @@ import { requireAuth } from "../middlewares/auth";
 
 const router = Router();
 
+// current-user
 router.get(
   "/current-user",
   requireAuth,
@@ -62,7 +63,6 @@ router.post(
   "/login",
   async (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body;
-
     try {
       if (!username || !password) {
         throw createHttpError(
@@ -82,7 +82,7 @@ router.post(
       res
         .status(StatusCodes.OK)
         .json({ username: user.username, email: user.email });
-    } catch (error) {
+    }catch(error) {
       next(error);
     }
   }

@@ -8,7 +8,7 @@ export interface QuoteDoc extends Document {
 
 export type QuoteModel = Model<QuoteDoc>;
 
-const quoteService = new Schema(
+const quoteShema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -27,4 +27,4 @@ const quoteService = new Schema(
   { timestamps: true }
 );
 
-export const Quote = model<QuoteDoc, QuoteModel>("Quote", quoteService);
+export const Quote = model<QuoteDoc, QuoteModel>("Quote", quoteShema);

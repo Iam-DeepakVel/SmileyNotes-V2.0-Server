@@ -18,7 +18,7 @@ export class AppModule {
   constructor(public app: Application) {
     app.use(
       cors({
-        origin: "http://localhost:3000",
+        origin: "http://localhost:3001",
         credentials: true,
       })
     );
@@ -40,6 +40,7 @@ export class AppModule {
     app.use("/api/v1/notes", requireAuth, notesRoutes);
     app.use("/api/v1/auth", authRoutes);
     app.use("/api/v1/quotes", quotesRoutes);
+    
     // Route Not Found
     app.use((req: Request, res: Response, next: NextFunction) => {
       next(createHttpError(StatusCodes.NOT_FOUND, "Endpoint not Found"));
@@ -50,9 +51,10 @@ export class AppModule {
   }
 
   async start() {
+    const port = env.PORT || 8000;
     try {
       await mongoose.connect(env.MONGO_URI);
-      this.app.listen(env.PORT, () =>
+      this.app.listen(port, () =>
         console.log(`Server is listening on Port ${env.PORT}`)
       );
     } catch (error) {
